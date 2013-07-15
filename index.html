@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<!-- Libraries -->
+	<script type="text/javascript" src="libs/jq.js"></script>
+	<link rel="stylesheet" href="libs/FontAwesome/font-awesome.min.css">
+
+	<!-- Style -->
+	<link rel="Stylesheet" type="text/css" href="style/reset.css" />
+	<link rel="Stylesheet" type="text/css" href="style/base.css" />
+	<link rel="Stylesheet" type="text/css" href="style/layout.css" />
+
+
+	<script type="text/javascript" src="index.js"></script>
+	<script type="text/javascript" src="treehouse.js"></script>
+
+</head>
+<body>
+	<script>
+		$(document).ready(function(){
+
+			checkboxTree = $('.container').treehouse({
+				animation_time : 0,
+				collapse_icon : '<i class="icon-minus-sign"></i>',
+				expand_icon : '<i class="icon-plus-sign"></i>',
+				indent_length                             : 10,
+				expanded                                  : true,
+				child_updates_parent                      : true,
+				parent_selects_children                   : true,
+				checked_parent_must_have_checked_children : true,
+				click_to_expand                           : true,
+				click_to_check                            : true
+			});
+
+			checkboxTree.build([
+				{
+					id : 'node1',
+					label : 'Root1',
+					checked : true,
+					nodes : [
+						{
+							id : 'node11',
+							label : 'sub1',
+						},
+						{
+							id : 'node12',
+							label : 'sub1',
+						},
+						{
+							id : 'node13',
+							label : 'sub1',
+						}
+					]
+				},
+				{
+					id : 'node2',
+					label : 'Root1',
+					checked : true,
+					expanded : false,
+					nodes : [
+						{
+							id : 'node22',
+							label : 'sub1',
+						}
+					]
+				}
+			]);
+
+			checkboxTree.update(function(node){
+				console.log(node, scrape());
+			});
+
+
+
+		});
+
+		scrape = function(){
+			return checkboxTree.reduce(function(memo, node){
+				if(node.isChecked()){
+					memo.push(node.id);
+				}
+				return memo;
+			}, []);
+		};
+		christmas = function(){
+
+		}
+
+
+	</script>
+
+	<style>
+
+	.treehouse-layer1:nth-child(odd) > .treehouse-title{
+		background-color: red;
+	}
+
+	.treehouse-layer1:nth-child(even) > .treehouse-title{
+		background-color: green;
+	}
+
+
+	</style>
+
+	<div class='container' style='margin-left:20px'></div>
+</body>
